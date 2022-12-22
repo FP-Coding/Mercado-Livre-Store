@@ -13,11 +13,22 @@ const getItensByQuery = async (QueryText) => {
   try {
     const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QueryText}`;
     const request = await fetch(endpoint);
-    const { result } = await request.json();
-    return result;
+    const { results } = await request.json();
+    return results;
   } catch (error) {
     return undefined;
   }
 };
 
-export { getAllCategories, getItensByQuery };
+const getItensByIdCategory = async (id) => {
+  try {
+    const endpoint = `https://api.mercadolibre.com/sites/MLB/search?category=${id}`;
+    const request = await fetch(endpoint);
+    const { results } = await request.json();
+    return results;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export { getAllCategories, getItensByQuery, getItensByIdCategory };
