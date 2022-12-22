@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
+import { getItensByIdCategoryAndQuery } from '../../utils/api';
 // import PropTypes from 'prop-types';
 
 function Home() {
   const [query, setQuery] = useState('');
+  const [items, setItems] = useState([]);
+  const [idCategorySearched, setIdCategorySearched] = useState('');
+
+  const submitSearch = async () => {
+    const itemsSearched = await getItensByIdCategoryAndQuery(
+      idCategorySearched,
+      query
+    );
+    setItems(itemsSearched);
+    setIdCategorySearched('');
+  };
+
   return (
     <main>
-      <div className="flex items-center justify-center gap-3 mt-5 h-8">
+      <section className="flex items-center justify-center gap-3 mt-5 h-8">
         <input
           type="text"
           value={query}
@@ -15,10 +28,20 @@ function Home() {
         <button
           type="button"
           className="bg-purple-600 h-full px-2 py-1 rounded duration-300 hover:bg-opacity-50"
+          onClick={submitSearch}
         >
           Pesquisar
         </button>
-      </div>
+      </section>
+      <section className="mt-5">
+        {items.length < 1 ? (
+          <p className="text-center">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
+        ) : (
+          'card'
+        )}
+      </section>
     </main>
   );
 }
