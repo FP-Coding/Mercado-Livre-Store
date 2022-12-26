@@ -6,9 +6,12 @@ function ProductCard({ id, name, image, price, stock, isShippingFree }) {
   return (
     <div
       id={id}
-      className="flex p-4 flex-col bg-slate-600 rounded gap-2 md:w-60 md:h-[28rem]"
+      className="flex p-4 flex-col bg-slate-600 rounded gap-4 md:w-60 md:h-[25rem]"
     >
-      <h4 className="text-md">{name}</h4>
+      <h4 className="text-md overflow-hidden overflow-ellipsis line-clamp-2">
+        {name}
+        ...
+      </h4>
       <div className="relative">
         {isShippingFree ? (
           <p className="bg-red-500 rounded-full p-2 absolute right-2 top-2">
