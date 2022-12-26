@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getItensByIdCategoryAndQuery } from '../../utils/api';
+import ProductCard from '../../components/ProductCard/ProductCard';
 // import PropTypes from 'prop-types';
 
 function Home() {
@@ -15,15 +16,14 @@ function Home() {
     setItems(itemsSearched);
     setIdCategorySearched('');
   };
-
   return (
     <main>
-      <section className="flex items-center justify-center gap-3 mt-5 h-8">
+      <section className="flex items-center justify-center gap-3 mt-5 h-12">
         <input
           type="text"
           value={query}
           onChange={({ target: { value } }) => setQuery(value)}
-          className="rounded w-1/3 h-full bg-slate-600 outline-none focus:border-purple-300 focus:border-2"
+          className="rounded w-[45%] h-full p-2 bg-slate-600 outline-none focus:border-purple-300 focus:border-2"
         />
         <button
           type="button"
@@ -39,7 +39,28 @@ function Home() {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         ) : (
-          'card'
+          <div className="flex gap-2 flex-wrap m-4 items-center justify-center">
+            {items.map(
+              ({
+                id,
+                title,
+                thumbnail,
+                price,
+                available_quantity: stockQuantity,
+                shipping: { free_shipping: isShippingFree }
+              }) => (
+                <ProductCard
+                  key={id}
+                  id={id}
+                  name={title}
+                  image={thumbnail}
+                  price={price}
+                  stock={stockQuantity}
+                  isShippingFree={isShippingFree}
+                />
+              )
+            )}
+          </div>
         )}
       </section>
     </main>
