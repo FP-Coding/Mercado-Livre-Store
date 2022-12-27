@@ -18,7 +18,7 @@ function ProductCard({ id, name, image, price, stock, isShippingFree }) {
             Frete Grátis
           </p>
         ) : null}
-        <img src={image} alt={name} className="h-full w-full" />
+        <img src={image} alt={name} className="h-full w-full rounded" />
       </div>
       <p>
         <span>R$: </span>
