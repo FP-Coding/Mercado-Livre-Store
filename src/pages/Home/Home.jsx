@@ -23,13 +23,13 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
     const filterById = async () => {
+      setIsLoading(true);
       const getItems = await getItensByIdCategory(idCategorySearched);
       setItems(getItems);
+      setIsLoading(false);
     };
     filterById();
-    setIsLoading(false);
   }, [idCategorySearched]);
 
   const submitSearch = async () => {
@@ -45,7 +45,7 @@ function Home() {
   return (
     <main>
       <Header search={query} setSearch={setQuery} submitSearch={submitSearch} />
-      <div className="flex justify-center">
+      <div className="flex">
         <aside className="hidden lg:flex flex-col mt-8 ml-8 p-4 w-[12%] rounded bg-gray-700">
           {categories.map(({ name, id }) => (
             <label htmlFor={id}>
@@ -61,13 +61,13 @@ function Home() {
           ))}
         </aside>
         {!isLoading ? (
-          <section className="mt-5 w-2/3">
+          <section className="m-8 w-[90%] text-center">
             {items.length < 1 ? (
-              <p className="text-center m-auto p-4">
+              <p className="m-auto">
                 Digite algum termo de pesquisa ou escolha uma categoria.
               </p>
             ) : (
-              <div className="flex gap-2 flex-wrap m-4 items-center justify-center">
+              <div className="flex gap-2 flex-wrap items-center justify-center">
                 {items.map(
                   ({
                     id,
