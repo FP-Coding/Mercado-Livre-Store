@@ -5,7 +5,7 @@ import {
   getItensByIdCategory
 } from '../../utils/api';
 import ProductCard from '../../components/ProductCard/ProductCard';
-// import PropTypes from 'prop-types';
+import Header from '../../components/Header/Header';
 
 function Home() {
   const [query, setQuery] = useState('');
@@ -44,21 +44,7 @@ function Home() {
 
   return (
     <main>
-      <section className="flex items-center justify-center gap-3 mt-5 h-12">
-        <input
-          type="text"
-          value={query}
-          onChange={({ target: { value } }) => setQuery(value)}
-          className="rounded w-[70%] h-full p-2 bg-slate-600 outline-none focus:border-purple-300 focus:border-2"
-        />
-        <button
-          type="button"
-          className="bg-purple-600 w-[7%] font-bold h-full px-2 py-1 rounded duration-300 hover:bg-opacity-50"
-          onClick={submitSearch}
-        >
-          Pesquisar
-        </button>
-      </section>
+      <Header search={query} setSearch={setQuery} submitSearch={submitSearch} />
       <div className="flex justify-center">
         <aside className="hidden lg:flex flex-col mt-8 ml-8 p-4 w-[12%] rounded bg-gray-700">
           {categories.map(({ name, id }) => (
@@ -112,7 +98,5 @@ function Home() {
     </main>
   );
 }
-
-// Home.propTypes = {}.isRequired;
 
 export default Home;
