@@ -48,7 +48,7 @@ function Home() {
       <div className="flex">
         <aside className="hidden lg:flex flex-col mt-8 ml-8 p-4 w-[12%] rounded bg-gray-700">
           {categories.map(({ name, id }) => (
-            <label htmlFor={id}>
+            <label htmlFor={id} key={id}>
               <input
                 type="radio"
                 name="selectCategory"

@@ -1,8 +1,10 @@
 import React from 'react';
 import { number, string, bool } from 'prop-types';
+import { saveNewItemCart } from '../../utils/cartStorage';
 
-function ProductCard({ id, name, image, price, stock, isShippingFree }) {
-  const addToCart = () => stock;
+function ProductCard(item) {
+  const { id, name, image, price /* , stock */, isShippingFree } = item;
+  const addToCart = () => saveNewItemCart(item);
   return (
     <div
       id={id}
@@ -26,7 +28,7 @@ function ProductCard({ id, name, image, price, stock, isShippingFree }) {
       </p>
       <button
         type="button"
-        className="bg-green-600 rounded p-2 font-bold"
+        className="bg-green-600 rounded p-2 font-bold hover:bg-green-800"
         onClick={addToCart}
       >
         Adicionar ao Carrinho
