@@ -33,7 +33,7 @@ function Header({ search, setSearch, submitSearch }) {
       <img src={mercadoLivreLogo} alt="Logo Mercado Livre" className="h-20" />
       <button
         type="button"
-        className="relative z-0"
+        className="relative"
         onClick={() => setIsHidden(!isHidden)}
       >
         <ShoppingCartSimple size={40} color="#fff" weight="bold" />
@@ -43,8 +43,8 @@ function Header({ search, setSearch, submitSearch }) {
       </button>
       <div
         className={`${
-          isHidden ? 'hidden' : ''
-        } absolute z-10 bg-slate-800 right-5 w-1/3 h-full top-0`}
+          !isHidden ? 'hidden' : ''
+        } absolute bg-slate-800 right-0 top-0 z-10 w-1/3 h-full overflow-y-auto`}
       >
         <button type="button" onClick={() => setIsHidden(!isHidden)}>
           <X size={52} weight="bold" className="m-4" />
