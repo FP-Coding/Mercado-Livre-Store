@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { string, func } from 'prop-types';
-import { MagnifyingGlass, ShoppingCartSimple } from 'phosphor-react';
+import { MagnifyingGlass, ShoppingCartSimple, X } from 'phosphor-react';
 import mercadoLivreLogo from '../../assets/mercadoLivreLogo.svg';
 import { getItemsCart } from '../../utils/cartStorage';
 
 function Header({ search, setSearch, submitSearch }) {
+  const [isHidden, setIsHidden] = useState(false);
+  const [itemsCart, setItemsCart] = useState([]);
+
+  useEffect(() => {
+    const items = getItemsCart();
+    setItemsCart(items);
+  }, []);
+
   return (
     <header className="flex justify-between items-center p-8 bg-green-700">
       <div className="flex items-center justify-center h-12">
@@ -23,12 +31,43 @@ function Header({ search, setSearch, submitSearch }) {
         </button>
       </div>
       <img src={mercadoLivreLogo} alt="Logo Mercado Livre" className="h-20" />
-      <button type="button" className="relative">
+      <button
+        type="button"
+        className="relative z-0"
+        onClick={() => setIsHidden(!isHidden)}
+      >
         <ShoppingCartSimple size={40} color="#fff" weight="bold" />
         <div className="flex items-center justify-center rounded-full text-center font-bold w-6 h-6 bg-red-600 absolute top-0 left-6 border-white border-solid border-x border-y">
           <p>{getItemsCart().length}</p>
         </div>
       </button>
+      <div
+        className={`${
+          isHidden ? 'hidden' : ''
+        } absolute z-10 bg-slate-800 right-5 w-1/3 h-full top-0`}
+      >
+        <button type="button" onClick={() => setIsHidden(!isHidden)}>
+          <X size={52} weight="bold" className="m-4" />
+        </button>
+        <div className="m-4">
+          {itemsCart.map(({ id, image, name, price }) => (
+            <div key={id} className="mb-4">
+              <img src={image} alt={name} className="rounded" />
+              <h3>{name}</h3>
+              <p>{price}</p>
+              <div className="flex gap-2">
+                <button type="button" className="bg-green-600 w-6 rounded">
+                  +
+                </button>
+                <p>0</p>
+                <button type="button" className="bg-red-600 w-6 rounded">
+                  -
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </header>
   );
 }
